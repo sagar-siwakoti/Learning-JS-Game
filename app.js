@@ -9,7 +9,7 @@ GAME RULES:
 
 */
 var scores,roundScore,activePlayer,dice;
-scores= [0,0];
+scores=[0,0];
 roundScore=0;
 activePlayer=0;
 
@@ -44,21 +44,40 @@ document.querySelector('.btn-roll').addEventListener('click',function(){ //anany
       
   }
   else{
-      //next player
-      activePlayer === 0 ? activePlayer = 1 :activePlayer = 0;
-      roundScore = 0;
-
-      document.getElementById('current-0').textContent='0';
-      document.getElementById('current-1').textContent='0';
-
-      
-      //document.querySelector('.player-0-panel').classList.remove('active');  //add and remove the active status of player
-      //document.querySelector('.player-1-panel').classList.add('active');
-
-      document.querySelector('.player-0-panel').classList.toggle('active'); //can use toggle 
-      document.querySelector('.player-1-panel').classList.toggle('active');
-      
-  } 
+      nextPlayer();
+  }    
 });
 
+document.querySelector('.btn-hold').addEventListener('click',function(){
+    
+  //add current score to global score
+  scores[activePlayer] += roundScore;
 
+  //update the UI
+  document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+
+  //check if player won the gane
+   
+ 
+  nextPlayer();
+
+});
+
+function nextPlayer(){
+ //next player
+ activePlayer === 0 ? activePlayer = 1 :activePlayer = 0;
+ roundScore = 0;
+
+ document.getElementById('current-0').textContent='0';
+ document.getElementById('current-1').textContent='0';
+
+ 
+ //document.querySelector('.player-0-panel').classList.remove('active');  //add and remove the active status of player
+ //document.querySelector('.player-1-panel').classList.add('active');
+
+ document.querySelector('.player-0-panel').classList.toggle('active'); //can use toggle 
+ document.querySelector('.player-1-panel').classList.toggle('active');
+ 
+ document.querySelector('.dice').style.display='none'; //remove the display of dice after 1 is generated
+  
+}
